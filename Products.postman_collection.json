@@ -1,0 +1,136 @@
+{
+	"info": {
+		"_postman_id": "f0b49bba-d483-4dc6-8a2d-047754e2151d",
+		"name": "Products",
+		"description": "Endpoint for manage the products\n\nENUM STATUS:  \ni. em estoque;  \nii. em reposição;  \niii. em falta;",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8567120"
+	},
+	"item": [
+		{
+			"name": "List all products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL_LOCAL}}api/v1/products",
+					"host": [
+						"{{URL_LOCAL}}api"
+					],
+					"path": [
+						"v1",
+						"products"
+					]
+				},
+				"description": "List the most recents products"
+			},
+			"response": []
+		},
+		{
+			"name": "List specific product by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL_LOCAL}}api/v1/products/11",
+					"host": [
+						"{{URL_LOCAL}}api"
+					],
+					"path": [
+						"v1",
+						"products",
+						"11"
+					]
+				},
+				"description": "List a product by id"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Bola de Tênis\",\r\n    \"price\": 10.50,\r\n    \"description\": \"Bola de tenis da marca Wilson\",\r\n    \"stock_quantity\":10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL_LOCAL}}api/v1/products",
+					"host": [
+						"{{URL_LOCAL}}api"
+					],
+					"path": [
+						"v1",
+						"products"
+					]
+				},
+				"description": "Create a new product\n\nname and price is required"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Product",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Bola de Tênis 2\",\r\n    \"price\": 10.50,\r\n    \"stock_quantity\":5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL_LOCAL}}api/v1/products/15",
+					"host": [
+						"{{URL_LOCAL}}api"
+					],
+					"path": [
+						"v1",
+						"products",
+						"15"
+					]
+				},
+				"description": "Update a product\n\nname and price is required"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Product",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Bola de Tênis 2\",\r\n    \"price\": 10.50,\r\n    \"stock_quantity\":5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL_LOCAL}}api/v1/products/11",
+					"host": [
+						"{{URL_LOCAL}}api"
+					],
+					"path": [
+						"v1",
+						"products",
+						"11"
+					]
+				},
+				"description": "Remove a product from your list"
+			},
+			"response": []
+		}
+	]
+}
