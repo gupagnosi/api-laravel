@@ -8,8 +8,9 @@ use App\Enums\Status;
 use App\Traits\HttpResponse;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Contracts\ProductControllerInterface;
 
-class ProductController extends Controller
+class ProductController extends Controller implements ProductControllerInterface
 {
     use HttpResponse;
 
@@ -19,14 +20,9 @@ class ProductController extends Controller
 
         $products = $products->map(function ($product) {
             return [
-                'id' => $product->id,
                 'name' => $product->name,
                 'price' => $product->price,
-                'status' => $product->status,
-                'stock_quantity' => $product->stock_quantity,
                 'description' => $product->description,
-                'created_at' => Carbon::parse($product->created_at)->timezone('America/Sao_Paulo')->format('d/m/Y H:i:s'),
-                'updated_at' => Carbon::parse($product->updated_at)->timezone('America/Sao_Paulo')->format('d/m/Y H:i:s'),
             ];
         });
 

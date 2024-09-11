@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->decimal('price', 10, 2);
             $table->enum('status', Status::values())->default(Status::EM_ESTOQUE->value);
-            $table->integer('stock_quantity')->default(0);
+            $table->integer('stock_quantity')->integer()->default(0);
             $table->timestamps();
         });
     }

@@ -20,14 +20,9 @@ class ProductTest extends TestCase
 
         $response->assertJsonStructure([
             '*' => [
-                'id',
                 'name',
                 'price',
-                'status',
-                'stock_quantity',
                 'description',
-                'created_at',
-                'updated_at'
             ]
         ]);
     }
@@ -156,5 +151,47 @@ class ProductTest extends TestCase
     {
         $response = $this->delete('/api/v1/products/9999999');
         $response->assertStatus(404);
+    }
+
+    /** @test */
+    public function test_prevents_sql_injection_in_product_creation()
+    {
+        $data = [
+            'name' => 'Test Product',
+            'price' => '100; DROP TABLE products;',
+            'status' => 'em estoque',
+            'description' => 'This is a test product',
+            'stock_quantity' => 50
+        ];
+    
+        $response = $this->post('/api/v1/products', $data);
+    
+        $response->assertStatus(422);
+    
+        $this->assertDatabaseMissing('products', [
+            'price' => '100; DROP TABLE products;'
+        ]);
+    }
+
+    /** @test */
+    public function test_prevents_sql_injection_in_product_update()
+    {
+        $product = Product::factory()->create();
+
+        $data = [
+            'name' => 'Updated Product',
+            'price' => '150; DROP TABLE products;',
+            'status' => 'em reposição',
+            'description' => 'Updated description',
+            'stock_quantity' => 60
+        ];
+
+        $response = $this->put('/api/v1/products/' . $product->id, $data);
+
+        $response->assertStatus(422);
+
+        $this->assertDatabaseMissing('products', [
+            'price' => '150; DROP TABLE products;'
+        ]);
     }
 }
